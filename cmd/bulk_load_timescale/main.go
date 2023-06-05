@@ -152,6 +152,7 @@ func init() {
 
 func main() {
 	if doLoad && doDbCreate {
+		log.Printf("create database with url %s\n", daemonUrl)
 		createDatabase(daemonUrl)
 	}
 
