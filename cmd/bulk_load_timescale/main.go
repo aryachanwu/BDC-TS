@@ -8,6 +8,7 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	timescale_serialization "github.com/BDC-TS/timescale_serializaition"
 	"log"
 	"os"
 	"strconv"
@@ -22,7 +23,6 @@ import (
 	"context"
 	"encoding/binary"
 	"github.com/caict-benchmark/BDC-TS/bulk_data_gen/common"
-	"github.com/caict-benchmark/BDC-TS/timescale_serializaition"
 	"io"
 )
 
@@ -619,7 +619,7 @@ var IotCreateTableSql = []string{
 	"CREATE TABLE window_state_room (time bigint not null,room_id TEXT,sensor_id TEXT,window_id TEXT,home_id TEXT, state float8,battery_voltage float8 )",
 }
 
-var devopsCreateHypertableSql = []string{
+/*var devopsCreateHypertableSql = []string{
 	"select create_hypertable('cpu','time', chunk_time_interval => %d);",
 	"select create_hypertable('diskio','time', chunk_time_interval => %d);",
 	"select create_hypertable('disk','time', chunk_time_interval => %d);",
@@ -629,7 +629,7 @@ var devopsCreateHypertableSql = []string{
 	"select create_hypertable('nginx','time', chunk_time_interval => %d);",
 	"select create_hypertable('postgresl','time', chunk_time_interval => %d);",
 	"select create_hypertable('redis','time', chunk_time_interval => %d);",
-}
+}*/
 
 var iotCreateHypertableSql = []string{
 	"select create_hypertable('air_quality_room','time', chunk_time_interval => %d);",
@@ -733,12 +733,12 @@ func createDatabase(daemon_url string) {
 			log.Fatal(err)
 		}
 	}
-	for _, sql := range devopsCreateHypertableSql {
+	/*for _, sql := range devopsCreateHypertableSql {
 		_, err = conn.Exec(fmt.Sprintf(sql, chunkDuration.Nanoseconds()))
 		if err != nil {
 			log.Fatal(err)
 		}
-	}
+	}*/
 	for _, sql := range iotCreateHypertableSql {
 		_, err = conn.Exec(fmt.Sprintf(sql, chunkDuration.Nanoseconds()))
 		if err != nil {
