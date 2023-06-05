@@ -83,9 +83,9 @@ type FlatPoint struct {
 
 // Parse args:
 func init() {
-	flag.StringVar(&daemonUrl, "url", "localhost:5432", "Timescale DB URL.")
-	flag.StringVar(&psUser, "user", "postgres", "Postgresql user")
-	flag.StringVar(&psPassword, "password", "", "Postgresql password")
+	flag.StringVar(&daemonUrl, "url", "localhost:26257", "Timescale DB URL.")
+	flag.StringVar(&psUser, "user", "root", "Postgresql user")
+	flag.StringVar(&psPassword, "password", "1234", "Postgresql password")
 	flag.StringVar(&file, "file", "", "Input file")
 
 	flag.StringVar(&format, "format", formatChoices[1], "Input data format. One of: "+strings.Join(formatChoices, ","))
@@ -589,7 +589,8 @@ func processBatchesBin(conn *pgx.Conn) int64 {
 }
 
 const createDatabaseSql = "create database " + DatabaseName + ";"
-const createExtensionSql = "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;"
+
+/*const createExtensionSql = "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;"*/
 
 var DevopsCreateTableSql = []string{
 	"CREATE table cpu(time bigint not null,hostname TEXT,region TEXT,datacenter TEXT,rack TEXT,os TEXT,arch TEXT,team TEXT,service TEXT,service_version TEXT,service_environment TEXT,usage_user float8,usage_system float8,usage_idle float8,usage_nice float8,usage_iowait float8,usage_irq float8,usage_softirq float8,usage_steal float8,usage_guest float8,usage_guest_nice float8);",
@@ -631,7 +632,7 @@ var IotCreateTableSql = []string{
 	"select create_hypertable('redis','time', chunk_time_interval => %d);",
 }*/
 
-var iotCreateHypertableSql = []string{
+/*var iotCreateHypertableSql = []string{
 	"select create_hypertable('air_quality_room','time', chunk_time_interval => %d);",
 	"select create_hypertable('air_condition_room','time', chunk_time_interval => %d);",
 	"select create_hypertable('air_condition_outdoor','time', chunk_time_interval => %d);",
@@ -645,7 +646,7 @@ var iotCreateHypertableSql = []string{
 	"select create_hypertable('water_level','time', chunk_time_interval => %d);",
 	"select create_hypertable('weather_outdoor','time', chunk_time_interval => %d);",
 	"select create_hypertable('window_state_room','time', chunk_time_interval => %d);",
-}
+}*/
 
 var devopsCreateIndexSql = []string{
 	"CREATE index cpu_hostname_index on cpu(hostname, time DESC);",
@@ -704,10 +705,10 @@ func createDatabase(daemon_url string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	_, err = conn.Exec(createExtensionSql)
+	/*_, err = conn.Exec(createExtensionSql)
 	if err != nil {
 		log.Fatal(err)
-	}
+	}*/
 	//TODO create only use-case specific schema
 	for _, sql := range DevopsCreateTableSql {
 		_, err = conn.Exec(sql)
@@ -739,11 +740,11 @@ func createDatabase(daemon_url string) {
 			log.Fatal(err)
 		}
 	}*/
-	for _, sql := range iotCreateHypertableSql {
+	/*for _, sql := range iotCreateHypertableSql {
 		_, err = conn.Exec(fmt.Sprintf(sql, chunkDuration.Nanoseconds()))
 		if err != nil {
 			log.Fatal(err)
 		}
-	}
+	}*/
 
 }
