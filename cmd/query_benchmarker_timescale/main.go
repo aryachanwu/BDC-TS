@@ -67,9 +67,9 @@ const DatabaseName = "benchmark_db"
 // Parse args:
 func init() {
 
-	flag.StringVar(&daemonUrl, "url", "localhost:5432", "Daemon URL.")
-	flag.StringVar(&psUser, "user", "postgres", "Postgresql user")
-	flag.StringVar(&psPassword, "password", "", "Postgresql password")
+	flag.StringVar(&daemonUrl, "url", "localhost:26257", "Daemon URL.")
+	flag.StringVar(&psUser, "user", "root", "Postgresql user")
+	flag.StringVar(&psPassword, "password", "1234", "Postgresql password")
 	flag.IntVar(&workers, "workers", 1, "Number of concurrent requests to make.")
 	flag.IntVar(&debug, "debug", 0, "Whether to print debug messages.")
 	flag.Int64Var(&limit, "limit", -1, "Limit the number of queries to send.")
