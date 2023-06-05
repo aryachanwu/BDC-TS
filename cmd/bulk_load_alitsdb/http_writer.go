@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	alitsdb_serialization "github.com/caict-benchmark/BDC-TS/alitsdb_serializaition"
+	alitsdb_serialization "github.com/aryachanwu/BDC-TS/alitsdb_serializaition"
 
 	"github.com/valyala/fasthttp"
 )

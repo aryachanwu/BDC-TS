@@ -3,7 +3,7 @@ package common
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/caict-benchmark/BDC-TS/timescale_serializaition"
+	"github.com/aryachanwu/BDC-TS/timescale_serializaition"
 	"io"
 	"log"
 	"reflect"

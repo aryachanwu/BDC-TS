@@ -20,9 +20,9 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 
-	"github.com/caict-benchmark/BDC-TS/bulk_query_gen/mongodb"
-	"github.com/caict-benchmark/BDC-TS/mongo_serialization"
-	"github.com/caict-benchmark/BDC-TS/util/report"
+	"github.com/aryachanwu/BDC-TS/bulk_query_gen/mongodb"
+	"github.com/aryachanwu/BDC-TS/mongo_serialization"
+	"github.com/aryachanwu/BDC-TS/util/report"
 	"strconv"
 	"strings"
 )

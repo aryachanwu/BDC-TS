@@ -9,7 +9,7 @@ import (
     "strings"
     "regexp"
     // "strconv"
-    bulkQuerygen "github.com/caict-benchmark/BDC-TS/bulk_query_gen"
+    bulkQuerygen "github.com/aryachanwu/BDC-TS/bulk_query_gen"
 )
 
 type BceTSDBDevops struct {

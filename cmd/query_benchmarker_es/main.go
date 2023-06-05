@@ -21,7 +21,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/caict-benchmark/BDC-TS/util/report"
+	"github.com/aryachanwu/BDC-TS/util/report"
 )
 
 // Program option vars:

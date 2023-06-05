@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/caict-benchmark/BDC-TS/bulk_data_gen/common"
+	"github.com/aryachanwu/BDC-TS/bulk_data_gen/common"
 )
 
 // TimeSlice is the wrapper of the time.Time slice for sorting

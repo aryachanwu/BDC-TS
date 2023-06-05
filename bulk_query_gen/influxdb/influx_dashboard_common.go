@@ -2,8 +2,8 @@ package influxdb
 
 import (
 	"fmt"
-	"github.com/caict-benchmark/BDC-TS/bulk_data_gen/dashboard"
-	bulkQuerygen "github.com/caict-benchmark/BDC-TS/bulk_query_gen"
+	"github.com/aryachanwu/BDC-TS/bulk_data_gen/dashboard"
+	bulkQuerygen "github.com/aryachanwu/BDC-TS/bulk_query_gen"
 	"math/rand"
 	"time"
 )

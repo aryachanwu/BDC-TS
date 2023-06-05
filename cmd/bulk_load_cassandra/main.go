@@ -14,8 +14,8 @@ import (
 	"time"
 
 	"github.com/gocql/gocql"
-	"github.com/caict-benchmark/BDC-TS/bulk_data_gen/common"
-	"github.com/caict-benchmark/BDC-TS/util/report"
+	"github.com/aryachanwu/BDC-TS/bulk_data_gen/common"
+	"github.com/aryachanwu/BDC-TS/util/report"
 	"strconv"
 	"strings"
 )

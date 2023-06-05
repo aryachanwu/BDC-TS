@@ -22,7 +22,7 @@ import (
 	"time"
 
 	"bytes"
-	"github.com/caict-benchmark/BDC-TS/util/report"
+	"github.com/aryachanwu/BDC-TS/util/report"
 	"io/ioutil"
 )
 

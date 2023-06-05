@@ -2,7 +2,7 @@ package vehicle
 
 import (
 	"fmt"
-	. "github.com/caict-benchmark/BDC-TS/bulk_data_gen/common"
+	. "github.com/aryachanwu/BDC-TS/bulk_data_gen/common"
 	"time"
 )
 

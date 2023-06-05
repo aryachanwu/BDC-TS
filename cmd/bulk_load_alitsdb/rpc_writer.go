@@ -8,10 +8,10 @@ import (
 	"sync"
 	"time"
 
-	alitsdb_serialization "github.com/caict-benchmark/BDC-TS/alitsdb_serializaition"
+	alitsdb_serialization "github.com/aryachanwu/BDC-TS/alitsdb_serializaition"
 	cmap "github.com/orcaman/concurrent-map"
 
-	"github.com/caict-benchmark/BDC-TS/bulk_data_gen/common"
+	"github.com/aryachanwu/BDC-TS/bulk_data_gen/common"
 
 	"google.golang.org/grpc"
 )

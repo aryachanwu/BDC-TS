@@ -16,13 +16,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/caict-benchmark/BDC-TS/util/report"
+	"github.com/aryachanwu/BDC-TS/util/report"
 	"github.com/jackc/pgx"
 
 	"bytes"
 	"context"
 	"encoding/binary"
-	"github.com/caict-benchmark/BDC-TS/bulk_data_gen/common"
+	"github.com/aryachanwu/BDC-TS/bulk_data_gen/common"
 	"io"
 )
 

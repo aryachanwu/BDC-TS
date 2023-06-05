@@ -25,11 +25,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/caict-benchmark/BDC-TS/bulk_data_gen/common"
-	"github.com/caict-benchmark/BDC-TS/bulk_data_gen/dashboard"
-	"github.com/caict-benchmark/BDC-TS/bulk_data_gen/devops"
-	"github.com/caict-benchmark/BDC-TS/bulk_data_gen/iot"
-	"github.com/caict-benchmark/BDC-TS/bulk_data_gen/vehicle"
+	"github.com/aryachanwu/BDC-TS/bulk_data_gen/common"
+	"github.com/aryachanwu/BDC-TS/bulk_data_gen/dashboard"
+	"github.com/aryachanwu/BDC-TS/bulk_data_gen/devops"
+	"github.com/aryachanwu/BDC-TS/bulk_data_gen/iot"
+	"github.com/aryachanwu/BDC-TS/bulk_data_gen/vehicle"
 )
 
 // Output data format choices:

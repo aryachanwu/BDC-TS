@@ -12,7 +12,7 @@ import (
 	"encoding/gob"
 	"flag"
 	"fmt"
-	"github.com/caict-benchmark/BDC-TS/util/report"
+	"github.com/aryachanwu/BDC-TS/util/report"
 	"io"
 	"log"
 	"os"

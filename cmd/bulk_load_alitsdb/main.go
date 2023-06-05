@@ -21,11 +21,11 @@ import (
 	"sync"
 	"time"
 
-	alitsdb_serialization "github.com/caict-benchmark/BDC-TS/alitsdb_serializaition"
+	alitsdb_serialization "github.com/aryachanwu/BDC-TS/alitsdb_serializaition"
 
-	"github.com/caict-benchmark/BDC-TS/bulk_data_gen/common"
-	"github.com/caict-benchmark/BDC-TS/bulk_data_gen/vehicle"
-	"github.com/caict-benchmark/BDC-TS/util/report"
+	"github.com/aryachanwu/BDC-TS/bulk_data_gen/common"
+	"github.com/aryachanwu/BDC-TS/bulk_data_gen/vehicle"
+	"github.com/aryachanwu/BDC-TS/util/report"
 	"github.com/klauspost/compress/gzip"
 	"github.com/pkg/profile"
 )

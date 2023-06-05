@@ -29,7 +29,7 @@ export GOPATH=/root/go  # 指定工程目录，随便指定一个地方
 #### 安装生成数据工具
 
 ```powershell
-go install github.com/caict-benchmark/BDC-TS/cmd/bulk_data_gen@latest
+go install github.com/aryachanwu/BDC-TS/cmd/bulk_data_gen@latest
 ```
 
 #### 安装导入数据工具
@@ -37,13 +37,13 @@ go install github.com/caict-benchmark/BDC-TS/cmd/bulk_data_gen@latest
 导入数据需要根据你基于的数据库不同，安装不同的导入工具
 ```powershell
 # influx
-go install github.com/caict-benchmark/BDC-TS/cmd/bulk_load_influx@latest
+go install github.com/aryachanwu/BDC-TS/cmd/bulk_load_influx@latest
 
 # ES
-go install github.com/caict-benchmark/BDC-TS/cmd/bulk_load_es@latest
+go install github.com/aryachanwu/BDC-TS/cmd/bulk_load_es@latest
 
 # OPENTSDB
-go install github.com/caict-benchmark/BDC-TS/cmd/bulk_load_opentsdb@latest
+go install github.com/aryachanwu/BDC-TS/cmd/bulk_load_opentsdb@latest
 ```
 
 
@@ -123,7 +123,7 @@ Data rate: 19.631000 MB/sec
 ```
 
 ## 三、时序数据库基准测试(BDC-TS)
-我们工程的核心，是实现BDC-TS的测试。BDC-TS测试方案详见(CTSDB最佳实践)：https://github.com/caict-benchmark/BDC-TS/blob/master/practices/CTSDB_Tencent/README.md  
+我们工程的核心，是实现BDC-TS的测试。BDC-TS测试方案详见(CTSDB最佳实践)：https://github.com/aryachanwu/BDC-TS/blob/master/practices/CTSDB_Tencent/README.md  
 大家可以参考这个最佳实践进行测试
 
 ### 实时数据集
@@ -147,4 +147,4 @@ Data rate: 19.631000 MB/sec
 方法是：仿照bulk_load、bulk_query_gen、cmd文件夹下的代码，重写一个数据库模型
 
 ## 五、java工具使用
-java_tools目录下是使用java编写的部分工具，独立放在一个目录是为了和go编写的工具区分开来，java_tools目录下的工程目前只有一个数据生成工具，可以生成电网测试数据，格式是csv，使用方法见https://github.com/caict-benchmark/BDC-TS/blob/master/java_tools/data_gen/README.MD
+java_tools目录下是使用java编写的部分工具，独立放在一个目录是为了和go编写的工具区分开来，java_tools目录下的工程目前只有一个数据生成工具，可以生成电网测试数据，格式是csv，使用方法见https://github.com/aryachanwu/BDC-TS/blob/master/java_tools/data_gen/README.MD
