@@ -8,7 +8,7 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	timescale_serialization "github.com/BDC-TS/timescale_serializaition"
+	timescale_serialization "github.com/aryachanwu/BDC-TS/timescale_serializaition"
 	"log"
 	"os"
 	"strconv"
