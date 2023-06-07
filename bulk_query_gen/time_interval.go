@@ -30,6 +30,9 @@ func (ti *TimeInterval) RandWindow(window time.Duration) TimeInterval {
 	upper := ti.End.Add(-window).UnixNano()
 
 	if upper <= lower {
+		intermediate := lower + 1
+		lower = upper
+		upper = intermediate
 		panic("logic error: bad time bounds")
 	}
 
@@ -73,4 +76,3 @@ func (ti *TimeInterval) StartUnix() int64 {
 func (ti *TimeInterval) EndUnix() int64 {
 	return ti.End.UTC().Unix()
 }
-
