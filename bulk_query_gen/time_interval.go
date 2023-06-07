@@ -33,7 +33,6 @@ func (ti *TimeInterval) RandWindow(window time.Duration) TimeInterval {
 		intermediate := lower + 1
 		lower = upper
 		upper = intermediate
-		panic("logic error: bad time bounds")
 	}
 
 	start := lower + rand.Int63n(upper-lower)
