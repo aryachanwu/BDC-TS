@@ -3,19 +3,19 @@ package kaiwudb
 import "time"
 import bulkQuerygen "github.com/aryachanwu/BDC-TS/bulk_query_gen"
 
-// TimescaleVehicleSingleHostOneMonth produces Timescale-specific queries for the Vehicle single-host case.
-type TimescaleVehicleSingleHostOneMonth struct {
-	TimescaleVehicle
+// KaiwuVehicleSingleHostOneMonth produces Kaiwu-specific queries for the Vehicle single-host case.
+type KaiwuVehicleSingleHostOneMonth struct {
+	KaiwuVehicle
 }
 
-func NewTimescaleVehicleSingleHostOneMonth(dbConfig bulkQuerygen.DatabaseConfig, queriesFullRange bulkQuerygen.TimeInterval, queryInterval time.Duration, scaleVar int) bulkQuerygen.QueryGenerator {
-	underlying := newTimescaleVehicleCommon(dbConfig, queriesFullRange, queryInterval, scaleVar).(*TimescaleVehicle)
-	return &TimescaleVehicleSingleHostOneMonth{
-		TimescaleVehicle: *underlying,
+func NewKaiwuVehicleSingleHostOneMonth(dbConfig bulkQuerygen.DatabaseConfig, queriesFullRange bulkQuerygen.TimeInterval, queryInterval time.Duration, scaleVar int) bulkQuerygen.QueryGenerator {
+	underlying := newKaiwuVehicleCommon(dbConfig, queriesFullRange, queryInterval, scaleVar).(*KaiwuVehicle)
+	return &KaiwuVehicleSingleHostOneMonth{
+		KaiwuVehicle: *underlying,
 	}
 }
 
-func (d *TimescaleVehicleSingleHostOneMonth) Dispatch(i int) bulkQuerygen.Query {
+func (d *KaiwuVehicleSingleHostOneMonth) Dispatch(i int) bulkQuerygen.Query {
 	q := NewSQLQuery() // from pool
 	d.AvergeValueOneMonthOneHost(q)
 	return q
