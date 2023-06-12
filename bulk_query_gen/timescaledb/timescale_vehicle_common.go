@@ -100,7 +100,5 @@ func (d *TimescaleVehicle) LastValueNHosts(qi bulkQuerygen.Query, nhosts int) {
 	q := qi.(*SQLQuery)
 	q.HumanLabel = []byte(humanLabel)
 	q.HumanDescription = []byte(fmt.Sprintf("%s: %s", humanLabel))
-	valueId := rand.Intn(59) + 1
-	valueName := "value" + strconv.Itoa(valueId)
 	q.QuerySQL = []byte(fmt.Sprintf("select timestamp, VIN, value4 from (select timestamp, VIN, value4, rank() over(order by timestamp desc range between unbounded preceding and unbounded following) as rank from accounts) t where rank=1"))
 }
