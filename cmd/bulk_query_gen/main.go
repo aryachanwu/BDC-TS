@@ -49,8 +49,11 @@ const (
 	DashboardSystemLoad             = "system-load"
 	DashboardThroughput             = "throughput"
 
-	VehicleReadTime = "vehicle-real-time"
-	VehicleAverage  = "vehicle-average"
+	VehicleReadTime         = "vehicle-real-time"
+	VehicleAverageOneDay    = "vehicle-average-one-day"
+	VehicleAverageSevenDays = "vehicle-average-seven-days"
+	VehicleAverageOneMonth  = "vehicle-average-one-month"
+	VehicleLast             = "vehicle-last"
 )
 
 // query generator choices {use-case, query-type, format}
@@ -134,7 +137,10 @@ var useCaseMatrix = map[string]map[string]map[string]bulkQueryGen.QueryGenerator
 	},
 	common.UseCaseVehicle: {
 		VehicleReadTime: {
-			"es-http": elasticsearch.NewElasticSearchVehicleRealTime,
+			"es-http":                    elasticsearch.NewElasticSearchVehicleRealTime,
+			"vehicle-average-one-day":    timescaledb.NewTimescaleVehicleSingleHost,
+			"vehicle-average-seven-days": timescaledb.NewTimescaleVehicleSingleHostSevenDays,
+			"vehicle-average-one-month":  timescaledb.NewTimescaleVehicleSingleHostOneMonth,
 		},
 	},
 }
