@@ -78,7 +78,7 @@ func (d *KaiwuVehicle) AvergeValueNHosts(qi bulkQuerygen.Query, nhosts int, time
 }
 
 // LastValueNHosts
-// select timestamp, VIN, value4 from (select timestamp, VIN, value4, rank() over(order by timestamp desc range between unbounded preceding and unbounded following) as rank from accounts) t where rank=1
+// select time, VIN, value4 from (select time, VIN, value4, rank() over(order by time desc range between unbounded preceding and unbounded following) as rank from vehicle) t where rank=1
 func (d *KaiwuVehicle) LastValueNHosts(qi bulkQuerygen.Query, nhosts int) {
 	//interval := d.AllInterval.RandWindow(timeRange)
 	nn := rand.Perm(d.ScaleVar)[:nhosts]
@@ -100,5 +100,5 @@ func (d *KaiwuVehicle) LastValueNHosts(qi bulkQuerygen.Query, nhosts int) {
 	q := qi.(*SQLQuery)
 	q.HumanLabel = []byte(humanLabel)
 	q.HumanDescription = []byte(fmt.Sprintf("%s: %s", humanLabel))
-	q.QuerySQL = []byte(fmt.Sprintf("select timestamp, VIN, value4 from (select timestamp, VIN, value4, rank() over(order by timestamp desc range between unbounded preceding and unbounded following) as rank from accounts) t where rank=1"))
+	q.QuerySQL = []byte(fmt.Sprintf("select time, VIN, value4 from (select time, VIN, value4, rank() over(order by time desc range between unbounded preceding and unbounded following) as rank from vehicle) t where rank=1"))
 }
