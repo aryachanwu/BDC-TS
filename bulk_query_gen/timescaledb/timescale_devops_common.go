@@ -85,7 +85,7 @@ func (d *TimescaleDevops) maxCPUUsageHourByMinuteNHosts(qi bulkQuerygen.Query, n
 	q.HumanLabel = []byte(humanLabel)
 	q.HumanDescription = []byte(fmt.Sprintf("%s: %s", humanLabel, interval.StartString()))
 
-	q.QuerySQL = []byte(fmt.Sprintf("select time_bucket(time,'60s') as time1min, max(usage_user) from cpu where (%s) and time >=%d and time < %d group by time_bucket(time,'60s') order by time_bucket(time,'60s')", combinedHostnameClause, interval.StartUnixNano(), interval.EndUnixNano()))
+	q.QuerySQL = []byte(fmt.Sprintf("select time_bucket(time,60000000000) as time1min, max(usage_user) from cpu where (%s) and time >=%d and time < %d group by time_bucket(time,60000000000) order by time_bucket(time,60000000000)", combinedHostnameClause, interval.StartUnixNano(), interval.EndUnixNano()))
 }
 
 // MeanCPUUsageDayByHourAllHosts populates a Query with a query that looks like:
@@ -98,5 +98,5 @@ func (d *TimescaleDevops) MeanCPUUsageDayByHourAllHostsGroupbyHost(qi bulkQueryg
 	q.HumanLabel = []byte(humanLabel)
 	q.HumanDescription = []byte(fmt.Sprintf("%s: %s", humanLabel, interval.StartString()))
 
-	q.QuerySQL = []byte(fmt.Sprintf("select avg(usage_user) from cpu where time >=%d and time < %d group by time_bucket(time,'1h'),hostname order by time", interval.StartUnixNano(), interval.EndUnixNano()))
+	q.QuerySQL = []byte(fmt.Sprintf("select avg(usage_user) from cpu where time >=%d and time < %d group by time_bucket(time, 360000000000),hostname order by time_bucket(time, 360000000000)", interval.StartUnixNano(), interval.EndUnixNano()))
 }
