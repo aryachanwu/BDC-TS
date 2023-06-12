@@ -13,6 +13,6 @@ type Vehicle interface {
 }
 
 // VehicleDispatchAll round-robins through the different devops queries.
-func VehicleDispatchAll(d Devops, iteration int, q Query, scaleVar int) {
+func VehicleDispatchAll(d Vehicle, iteration int, q Query, scaleVar int) {
 	d.AvergeValueOneDayOneHost(q)
 }
