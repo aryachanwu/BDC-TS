@@ -140,10 +140,10 @@ var useCaseMatrix = map[string]map[string]map[string]bulkQueryGen.QueryGenerator
 		VehicleReadTime: {
 			"es-http": elasticsearch.NewElasticSearchVehicleRealTime,
 		},
-		VehicleAverageOneDay:    {"kaiwudb": kaiwudb.NewTimescaleVehicleSingleHost},
-		VehicleAverageSevenDays: {"kaiwudb": kaiwudb.NewTimescaleVehicleSingleHostSevenDays},
-		VehicleAverageOneMonth:  {"kaiwudb": kaiwudb.NewTimescaleVehicleSingleHostOneMonth},
-		VehicleLast:             {"kaiwudb": kaiwudb.NewTimescaleVehicleLast},
+		VehicleAverageOneDay:    {"kaiwudb": kaiwudb.NewKaiwuVehicleSingleHost},
+		VehicleAverageSevenDays: {"kaiwudb": kaiwudb.NewKaiwuVehicleSingleHostSevenDays},
+		VehicleAverageOneMonth:  {"kaiwudb": kaiwudb.NewKaiwuVehicleSingleHostOneMonth},
+		VehicleLast:             {"kaiwudb": kaiwudb.NewKaiwuVehicleLast},
 	},
 }
 

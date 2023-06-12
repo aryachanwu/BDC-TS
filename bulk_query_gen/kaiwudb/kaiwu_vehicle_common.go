@@ -67,14 +67,14 @@ func (d *KaiwuVehicle) AvergeValueNHosts(qi bulkQuerygen.Query, nhosts int, time
 
 	//combinedHostnameClause := strings.Join(hostnameClauses, " or ")
 
-	humanLabel := fmt.Sprintf("Kaiwu max cpu, rand %4d hosts, rand %s by 1m", nhosts, timeRange)
+	humanLabel := fmt.Sprintf("Kaiwu averge value, rand %4d hosts", nhosts)
 
 	q := qi.(*SQLQuery)
 	q.HumanLabel = []byte(humanLabel)
 	q.HumanDescription = []byte(fmt.Sprintf("%s: %s", humanLabel, interval.StartString()))
 	valueId := rand.Intn(59) + 1
 	valueName := "value" + strconv.Itoa(valueId)
-	q.QuerySQL = []byte(fmt.Sprintf("select avg(%s) from vehicle and time >=%d and time < %d", valueName, interval.StartUnixNano(), interval.EndUnixNano()))
+	q.QuerySQL = []byte(fmt.Sprintf("select avg(%s) from vehicle where time >=%d and time < %d", valueName, interval.StartUnixNano(), interval.EndUnixNano()))
 }
 
 // LastValueNHosts
@@ -95,7 +95,7 @@ func (d *KaiwuVehicle) LastValueNHosts(qi bulkQuerygen.Query, nhosts int) {
 
 	//combinedHostnameClause := strings.Join(hostnameClauses, " or ")
 
-	humanLabel := fmt.Sprintf("Kaiwu max cpu, rand %4d hosts", nhosts)
+	humanLabel := fmt.Sprintf("Kaiwu last value, rand %4d hosts", nhosts)
 
 	q := qi.(*SQLQuery)
 	q.HumanLabel = []byte(humanLabel)
