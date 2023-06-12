@@ -13,6 +13,7 @@ import (
 	"github.com/aryachanwu/BDC-TS/bulk_query_gen/elasticsearch"
 	"github.com/aryachanwu/BDC-TS/bulk_query_gen/graphite"
 	"github.com/aryachanwu/BDC-TS/bulk_query_gen/influxdb"
+	"github.com/aryachanwu/BDC-TS/bulk_query_gen/kaiwudb"
 	"github.com/aryachanwu/BDC-TS/bulk_query_gen/mongodb"
 	"github.com/aryachanwu/BDC-TS/bulk_query_gen/opentsdb"
 	"github.com/aryachanwu/BDC-TS/bulk_query_gen/timescaledb"
@@ -137,11 +138,12 @@ var useCaseMatrix = map[string]map[string]map[string]bulkQueryGen.QueryGenerator
 	},
 	common.UseCaseVehicle: {
 		VehicleReadTime: {
-			"es-http":                    elasticsearch.NewElasticSearchVehicleRealTime,
-			"vehicle-average-one-day":    timescaledb.NewTimescaleVehicleSingleHost,
-			"vehicle-average-seven-days": timescaledb.NewTimescaleVehicleSingleHostSevenDays,
-			"vehicle-average-one-month":  timescaledb.NewTimescaleVehicleSingleHostOneMonth,
+			"es-http": elasticsearch.NewElasticSearchVehicleRealTime,
 		},
+		VehicleAverageOneDay:    {"kaiwudb": kaiwudb.NewTimescaleVehicleSingleHost},
+		VehicleAverageSevenDays: {"kaiwudb": kaiwudb.NewTimescaleVehicleSingleHostSevenDays},
+		VehicleAverageOneMonth:  {"kaiwudb": kaiwudb.NewTimescaleVehicleSingleHostOneMonth},
+		VehicleLast:             {"kaiwudb": kaiwudb.NewTimescaleVehicleLast},
 	},
 }
 

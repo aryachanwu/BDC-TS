@@ -1,4 +1,4 @@
-package timescaledb
+package kaiwudb
 
 import "time"
 import bulkQuerygen "github.com/aryachanwu/BDC-TS/bulk_query_gen"

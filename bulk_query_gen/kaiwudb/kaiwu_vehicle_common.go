@@ -1,4 +1,4 @@
-package timescaledb
+package kaiwudb
 
 import (
 	"fmt"
