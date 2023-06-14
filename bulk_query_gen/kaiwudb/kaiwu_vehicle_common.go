@@ -42,7 +42,7 @@ func (d *KaiwuVehicle) AvergeValueSevenDaysOneHost(q bulkQuerygen.Query) {
 }
 
 func (d *KaiwuVehicle) AvergeValueOneMonthOneHost(q bulkQuerygen.Query) {
-	d.AvergeValueNHosts(q, 1, time.Hour*24*7*30)
+	d.AvergeValueNHosts(q, 1, time.Hour*24*30)
 }
 
 func (d *KaiwuVehicle) LastValueOneHost(q bulkQuerygen.Query) {
