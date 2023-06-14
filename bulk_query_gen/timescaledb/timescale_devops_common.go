@@ -62,7 +62,7 @@ func (d *TimescaleDevops) MaxCPUUsage12HoursByMinuteOneHost(q bulkQuerygen.Query
 }
 
 // MaxCPUUsageHourByMinuteThirtyTwoHosts populates a Query with a query that looks like:
-// select time_bucket(60000000000,time) as time1min,max(usage_user) from cpu where (hostname = '$HOSTNAME_1' or ... or hostname = '$HOSTNAME_N') and time >=$HOUR_START and time < $HOUR_END group by time1min order by time1min;
+// select time_bucket(time, 60000000000) as time1min,max(usage_user) from cpu where (hostname = '$HOSTNAME_1' or ... or hostname = '$HOSTNAME_N') and time >=$HOUR_START and time < $HOUR_END group by time1min order by time1min;
 func (d *TimescaleDevops) maxCPUUsageHourByMinuteNHosts(qi bulkQuerygen.Query, nhosts int, timeRange time.Duration) {
 	interval := d.AllInterval.RandWindow(timeRange)
 	nn := rand.Perm(d.ScaleVar)[:nhosts]
