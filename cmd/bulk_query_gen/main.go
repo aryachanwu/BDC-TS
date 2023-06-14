@@ -330,7 +330,21 @@ func main() {
 
 	enc := gob.NewEncoder(out)
 	for i := 0; i < queryCount; i++ {
-		q := generator.Dispatch(i)
+		var index int
+		switch useCase {
+		case "vehicle-average-one-day":
+			index = 0
+		case "vehicle-average-seven-days":
+			index = 1
+		case "vehicle-average-one-month":
+			index = 2
+		case "vehicle-last":
+			index = 3
+		default:
+			index = i
+
+		}
+		q := generator.Dispatch(index)
 
 		if currentInterleavedGroup == interleavedGenerationGroupID {
 			err := enc.Encode(q)

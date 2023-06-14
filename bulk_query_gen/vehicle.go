@@ -14,5 +14,16 @@ type Vehicle interface {
 
 // VehicleDispatchAll round-robins through the different devops queries.
 func VehicleDispatchAll(d Vehicle, iteration int, q Query, scaleVar int) {
-	d.AvergeValueOneDayOneHost(q)
+	switch iteration {
+	case 0:
+		d.AvergeValueOneDayOneHost(q)
+	case 1:
+		d.AvergeValueSevenDaysOneHost(q)
+	case 2:
+		d.AvergeValueOneMonthOneHost(q)
+	case 3:
+		d.LastValueOneHost(q)
+	default:
+		panic("logic error in switch statement")
+	}
 }
