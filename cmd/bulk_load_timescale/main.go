@@ -6,6 +6,7 @@ package main
 
 import (
 	"bufio"
+	"database/sql"
 	"flag"
 	"fmt"
 	timescale_serialization "github.com/aryachanwu/BDC-TS/timescale_serializaition"
@@ -18,6 +19,7 @@ import (
 
 	"github.com/aryachanwu/BDC-TS/util/report"
 	"github.com/jackc/pgx"
+	"github.com/lib/pq"
 
 	"bytes"
 	"context"
@@ -33,6 +35,7 @@ const DatabaseName = "benchmark_db"
 // Program option vars:
 var (
 	daemonUrl           string
+	dataType            string
 	workers             int
 	batchSize           int
 	doLoad              bool
@@ -84,6 +87,7 @@ type FlatPoint struct {
 // Parse args:
 func init() {
 	flag.StringVar(&daemonUrl, "url", "localhost:26257", "Timescale DB URL.")
+	flag.StringVar(&dataType, "data-type", "vehicle", "Timescale DB data type.")
 	flag.StringVar(&psUser, "user", "root", "Postgresql user")
 	flag.StringVar(&psPassword, "password", "1234", "Postgresql password")
 	flag.StringVar(&file, "file", "", "Input file")
@@ -565,6 +569,17 @@ func (c *CopyFromPoint) Position() int {
 
 // processBatches reads byte buffers from batchChan and writes them to the target server, while tracking stats on the write.
 func processBatchesBin(conn *pgx.Conn) int64 {
+	connStr := "postgresql://root@" + daemonUrl + "/" + DatabaseName + "?sslmode=disable"
+	db, err := sql.Open("postgres", connStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	txn, err := db.Begin()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer txn.Rollback()
+
 	n := 0
 	var total int64
 	for batch := range batchChanBin {
@@ -574,14 +589,61 @@ func processBatchesBin(conn *pgx.Conn) int64 {
 		//log.Printf("CopyFrom %d of %s\n", n, batch[0].MeasurementName)
 		// Write the batch.
 		c := NewCopyFromPoint(batch)
-		rows, err := conn.CopyFrom(pgx.Identifier{batch[0].MeasurementName}, batch[0].Columns, c)
-		//log.Println("CopyFrom End")
+
+		var stmt *sql.Stmt
+		var err1 error
+		if dataType == "vehicle" {
+			batch[0].Columns[0] = "vin"
+			stmt, err1 = txn.Prepare(pq.CopyIn(batch[0].MeasurementName, batch[0].Columns...))
+			//stmt, err1 = txn.Prepare(pq.CopyIn(batch[0].MeasurementName, "vin", "value1", "value2", "value3", "value4", "value5", "value6", "value7", "value8", "value9", "value10", "value11", "value12", "value13", "value14", "value15", "value16", "value17", "value18", "value19", "value20", "value21", "value22", "value23", "value24", "value25", "value26", "value27", "value28", "value29", "value30", "value31", "value32", "value33", "value34", "value35", "value36", "value37", "value38", "value39", "value40", "value41", "value42", "value43", "value44", "value45", "value46", "value47", "value48", "value49", "value50", "value51", "value52", "value53", "value54", "value55", "value56", "value57", "value58", "value59", "value60", "time"))
+		} else {
+			/*for _, column := range batch[0].Columns {
+				fmt.Printf("%s\n", column)
+			}*/
+			/*println(num)
+			for i, v := range batch {
+				for _, l := range v.Columns {
+					println("batch[0].MeasurementName%s", batch[i].MeasurementName, i, l)
+				}
+			}*/
+			stmt, err1 = txn.Prepare(pq.CopyIn(batch[0].MeasurementName, batch[0].Columns...))
+		}
+
+		if err1 != nil {
+			println("prepare fail")
+			log.Fatal(err1)
+		}
+
+		var inputRows [][]interface{}
+		for c.Next() {
+			inputRows = append(inputRows, c.points[c.i].Values)
+			//var row []interface{}
+			/*for i, _ := range c.points[c.i].Values {
+				v := fmt.Sprint(c.points[c.i].Values[i])
+				println(i, v)
+			}*/
+			//inputRows = append(inputRows, row)*/
+		}
+		for _, r := range inputRows {
+			stmt.Exec(r...)
+		}
+
+		_, err = stmt.Exec()
 		if err != nil {
-			log.Fatalf("Error writing %d batch of '%s' of size %d in position %d: %s\n", n, batch[0].MeasurementName, len(batch), c.Position(), err.Error())
+			log.Printf("exec query fail")
+			log.Fatal(err)
 		}
-		if rows != len(batch) {
-			log.Printf("Problem writing of %d batch: Written only %d rows of %d", n, rows, len(batch))
+
+		err = stmt.Close()
+		if err != nil {
+			log.Fatal(err)
 		}
+
+		err = txn.Commit()
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		total += int64(len(batch))
 		n++
 	}
